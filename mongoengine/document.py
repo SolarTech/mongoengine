@@ -211,7 +211,7 @@ class Document(BaseDocument, metaclass=TopLevelDocumentMetaclass):
             # set to False.
             # Also there is no need to ensure indexes on slave.
             db = cls._get_db()
-            if cls._meta.get("auto_create_index", True) and db.client.is_primary:
+            if cls._meta.get("auto_create_index", False) and db.client.is_primary:
                 cls.ensure_indexes()
 
         return cls._collection
@@ -389,7 +389,7 @@ class Document(BaseDocument, metaclass=TopLevelDocumentMetaclass):
         # it might be refreshed by the pre_save_post_validation hook, e.g., for etag generation
         doc = self.to_mongo()
 
-        if self._meta.get("auto_create_index", True):
+        if self._meta.get("auto_create_index", False):
             self.ensure_indexes()
 
         try:

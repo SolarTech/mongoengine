@@ -84,7 +84,7 @@ class BaseDocument:
 
         # Check if there are undefined fields supplied to the constructor,
         # if so raise an Exception.
-        if not self._dynamic and (self._meta.get("strict", True) or _created):
+        if not self._dynamic and (self._meta.get("strict", False) or _created):
             _undefined_fields = set(values.keys()) - set(
                 list(self._fields.keys()) + ["id", "pk", "_cls", "_text_score"]
             )
